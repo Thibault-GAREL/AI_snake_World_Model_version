@@ -86,7 +86,7 @@ C'est le **moteur de jeu existant**, déjà utilisé pour entraîner d'autres IA
 
 ```powershell
 # Activer l'environnement (IA / PyTorch + CUDA)
-& c:\0-Code_py_temp\pytorch_cuda_env\Scripts\Activate.ps1
+& c:\0-Code_py_temp\pytorch_py310\Scripts\Activate.ps1
 
 # Tests
 pytest                                   # toute la suite
