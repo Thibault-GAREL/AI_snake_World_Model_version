@@ -720,8 +720,8 @@ The horizon sweep is the cleanest experiment here. Score rises up to H = 5, then
 Clone the repository and install dependencies :
 
 ```bash
-git clone https://github.com/Thibault-GAREL/World_model_from_scratch-Snake.git
-cd World_model_from_scratch-Snake
+git clone https://github.com/Thibault-GAREL/AI_snake_world_model_version.git
+cd AI_snake_world_model_version
 
 python -m venv .venv # if you don't have a virtual environment
 source .venv/bin/activate   # Linux / macOS
