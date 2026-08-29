@@ -11,7 +11,7 @@
 ![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
 <p align="center">
-  <img src="assets/Logo_World_Model_from_scratch.png" alt="Snake World Model planning in latent space" width="90%">
+  <img src="assets/Logo_World_Model_from_scratch.png" alt="Snake AI - World Model planning in latent space" width="90%">
 </p>
 
 ## 📝 Project Description
@@ -114,7 +114,7 @@ The world model plays Snake **with no learned policy**. Every move comes from pl
 | 🌳 Snake AI - Decision Tree | XGBoost + DAgger | 22.77 | 43 |
 | 🤖 Snake AI - DQN | Double DQN | 22.60 | 45 |
 | 🎯 Snake AI - PPO | Actor-Critic | 38.67 | 64 |
-| **🌍 Snake World Model** | **JEPA + MPC (no policy)** | **7.8** | **17** |
+| **🌍 Snake AI - World Model** | **JEPA + MPC (no policy)** | **7.8** | **17** |
 
 > The world model reaches ~110× the random baseline and ~35% of the hand-tuned greedy ceiling (mean 21.3), a strong result for an agent that **never learned a policy** and only plans inside a self-supervised latent model. The gap to the greedy and RL agents is expected : multi-step latent rollouts drift, which caps the useful planning horizon (H=5 is the measured optimum, H≥6 degrades).
 
