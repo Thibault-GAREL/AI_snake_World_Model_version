@@ -11,7 +11,9 @@
 ![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
 <p align="center">
-  <img src="assets/Logo_World_Model_from_scratch.png" alt="Snake AI - World Model planning in latent space" width="90%">
+  <img src="assets/snake_gameplay.gif" alt="The world model playing in the original pygame engine" width="47%">
+  &nbsp;
+  <img src="assets/mpc_gameplay.gif" alt="The raw 3x8x16 grid the world model actually perceives" width="47%">
 </p>
 
 ## 📝 Project Description
