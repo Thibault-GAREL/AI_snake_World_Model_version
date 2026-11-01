@@ -32,6 +32,20 @@ In one sentence : *a mini-Dreamer without a decoder (the predictive block is a J
 
 This project was created to learn how **self-supervised world models** work, and why predicting **representations** (not pixels) is the key idea behind JEPA.
 
+<details>
+<summary>⚙️ <b>Feature list</b></summary>
+
+- **JEPA world model**, learns to predict the next state in **latent space**, not in pixels
+- **No trained policy**, the agent acts by **planning (MPC)** through its own imagination
+- **Raw grid observation** (3 × 8 × 16, channels head / body / apple), the model learns its own representations
+- **Anti-collapse by design**, target encoder with EMA + stop-gradient + **VICReg** regularization
+- **Multi-step latent rollouts**, the predictor unrolls autoregressively to imagine several moves ahead
+- **Reward + done heads**, the planner maximizes imagined reward while avoiding death
+- **MLflow tracking** + a dedicated **collapse monitor** (embedding variance / rank)
+- Built on top of my own [Snake game engine](https://github.com/Thibault-GAREL/snake_game)
+
+</details>
+
 ---
 
 ## 🔬 Research Question
@@ -76,26 +90,6 @@ The world model sits in a new position on this spectrum. Its encoder is as opaqu
 
 ---
 
-## 🚀 Features
-
-  🌍 **JEPA world model**, learns to predict the next state in **latent space**, not in pixels
-
-  🎯 **No trained policy**, the agent acts by **planning (MPC)** through its own imagination
-
-  🖼️ **Raw grid observation** (3 × 8 × 16, channels head / body / apple), the model learns its own representations
-
-  🪞 **Anti-collapse by design**, target encoder with EMA + stop-gradient + **VICReg** regularization
-
-  🔮 **Multi-step latent rollouts**, the predictor unrolls autoregressively to imagine several moves ahead
-
-  🍎 **Reward + done heads**, the planner maximizes imagined reward while avoiding death
-
-  📈 **MLflow tracking** + a dedicated **collapse monitor** (embedding variance / rank)
-
-  🐍 Built on top of my own [Snake game engine](https://github.com/Thibault-GAREL/snake_game)
-
----
-
 ## Example Outputs
 
 <p align="center">
@@ -134,23 +128,7 @@ The world model plays Snake **with no learned policy**. Every move comes from pl
 
 ---
 
-## ⚙️ How it works
-
-  🎮 The Snake game runs **headless** as a Gym-like environment (`reset()` / `step(a)`), giving a raw grid observation.
-
-  👁️ An **encoder** (small CNN) compresses the grid into a latent state `s_t`.
-
-  🔮 A **predictor** imagines the next latent state `ŝ_{t+1}` from `s_t` and an action `a_t`.
-
-  🪞 A **target encoder** (EMA copy, stop-gradient) produces the learning target. The loss is computed **in latent space** (+ VICReg to avoid collapse).
-
-  🍎 Two small heads predict, from the latent state, the **reward** and the **death** of each imagined action.
-
-  🕹️ At play time, the agent **rolls out** the 4 actions (then short sequences) in its imagination, scores each future, and plays the best one. Pure planning, no learned policy.
-
----
-
-## 🗺️ Architecture Diagram
+## 🗺️ How it works
 
 This project uses a custom **action-conditioned JEPA** world model with a latent-space MPC controller :
 
@@ -163,6 +141,18 @@ This project uses a custom **action-conditioned JEPA** world model with a latent
 - Heads : reward (MSE) + done (BCE)
 - Loss : `latent prediction + λ·VICReg + reward + done`
 - Control : MPC search in latent space (exhaustive short-horizon tree)
+
+<details>
+<summary>⚙️ <b>How it works, step by step</b></summary>
+
+- The Snake game runs **headless** as a Gym-like environment (`reset()` / `step(a)`), giving a raw grid observation.
+- An **encoder** (small CNN) compresses the grid into a latent state `s_t`.
+- A **predictor** imagines the next latent state `ŝ_{t+1}` from `s_t` and an action `a_t`.
+- A **target encoder** (EMA copy, stop-gradient) produces the learning target. The loss is computed **in latent space** (+ VICReg to avoid collapse).
+- Two small heads predict, from the latent state, the **reward** and the **death** of each imagined action.
+- At play time, the agent **rolls out** the 4 actions (then short sequences) in its imagination, scores each future, and plays the best one. Pure planning, no learned policy.
+
+</details>
 
 ---
 
